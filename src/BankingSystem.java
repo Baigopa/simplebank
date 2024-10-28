@@ -5,6 +5,7 @@ class Nasabah {
 //    Logika untuk mengelola nasabah diekstrak ke dalam kelas Nasabah.
     private String nama;
     private double saldo;
+    //FITUR BARU
 
 //    Encapsulation:
 //    Data dalam kelas Nasabah (nama dan saldo) disembunyikan dengan modifier private.
