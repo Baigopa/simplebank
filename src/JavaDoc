@@ -1,0 +1,112 @@
+import java.util.Scanner;
+
+/**
+ * Kelas Nasabah merepresentasikan nasabah bank dengan atribut nama dan saldo.
+ * Menyediakan metode untuk melakukan setoran dan penarikan tunai, serta melihat saldo.
+ */
+class Nasabah {
+    private String nama;
+    private double saldo;
+
+    /**
+     * Konstruktor untuk membuat objek Nasabah.
+     *
+     * @param nama Nama nasabah
+     * @param saldo Saldo awal nasabah
+     */
+    public Nasabah(String nama, double saldo) {
+        this.nama = nama;
+        this.saldo = saldo;
+    }
+
+    /**
+     * Melakukan setoran tunai ke akun nasabah.
+     *
+     * @param setoran Jumlah uang yang akan disetorkan
+     */
+    public void setorTunai(double setoran) {
+        saldo += setoran;
+    }
+
+    /**
+     * Melakukan penarikan tunai dari akun nasabah.
+     * Jika jumlah penarikan melebihi saldo, maka akan menampilkan pesan "Saldo tidak cukup".
+     *
+     * @param penarikan Jumlah uang yang akan ditarik
+     */
+    public void tarikTunai(double penarikan) {
+        if (penarikan > saldo) {
+            System.out.println("Saldo tidak cukup!");
+        } else {
+            saldo -= penarikan;
+        }
+    }
+
+    /**
+     * Mengembalikan saldo saat ini dari akun nasabah.
+     *
+     * @return Saldo saat ini
+     */
+    public double getSaldo() {
+        return saldo;
+    }
+}
+
+/**
+ * Kelas BankingSystem menyediakan antarmuka untuk interaksi nasabah dengan sistem perbankan,
+ * memungkinkan nasabah untuk melakukan setoran, penarikan, dan mengecek saldo.
+ */
+public class BankingSystem {
+    /**
+     * Metode utama untuk menjalankan aplikasi perbankan.
+     * Menggunakan Scanner untuk mengambil input dari pengguna dan memberikan pilihan menu.
+     *
+     * @param args Argumen baris perintah (tidak digunakan)
+     */
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Masukkan nama nasabah: ");
+        String namaNasabah = scanner.nextLine();
+
+        System.out.print("Masukkan saldo awal: ");
+        double saldoAwal = scanner.nextDouble();
+
+        Nasabah nasabah = new Nasabah(namaNasabah, saldoAwal);
+
+        while (true) {
+            System.out.println("Menu:");
+            System.out.println("1. Setor Tunai");
+            System.out.println("2. Tarik Tunai");
+            System.out.println("3. Lihat Saldo");
+            System.out.println("4. Keluar");
+            System.out.print("Pilih menu: ");
+
+            int choice = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Masukkan jumlah setoran: ");
+                    double setoran = scanner.nextDouble();
+                    nasabah.setorTunai(setoran);
+                    System.out.println("Saldo berhasil diupdate!");
+                    break;
+                case 2:
+                    System.out.print("Masukkan jumlah penarikan: ");
+                    double penarikan = scanner.nextDouble();
+                    nasabah.tarikTunai(penarikan);
+                    break;
+                case 3:
+                    System.out.println("Saldo Anda: Rp " + nasabah.getSaldo());
+                    break;
+                case 4:
+                    System.out.println("Keluar dari program...");
+                    return;
+                default:
+                    System.out.println("Menu tidak valid!");
+            }
+            System.out.println();
+        }
+    }
+}
